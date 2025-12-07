@@ -5,10 +5,17 @@ USER root
 # Install pnpm globally
 RUN npm install -g pnpm
 
-# Install the community node using pnpm to satisfy only-allow
-RUN pnpm add -g n8n-nodes-playwright
+# Set PNPM_HOME and add to PATH
+ENV PNPM_HOME=/root/.local/share/pnpm
+ENV PATH="$PNPM_HOME:$PATH"
 
-# Install system deps for Playwright (chromium browser and libs)
+# Setup pnpm directories
+RUN pnpm setup
+
+# Install the community node
+RUN pnpm add -g n8n-nodes-playwright-persistent
+
+# Install system deps for Playwright (chromium and libs)
 RUN apk add --no-cache \
     ca-certificates \
     harfbuzz \
