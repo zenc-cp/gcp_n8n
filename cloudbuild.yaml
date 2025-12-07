@@ -6,6 +6,6 @@ steps:
   - name: 'gcr.io/google.com/cloudsdktool/gcloud'  # Optional: Auto-deploy to Cloud Run
     args: ['run', 'deploy', 'n8ngcp', '--image', '$_AR_REPO/my-n8n-with-playwright:$SHORT_SHA', '--region', 'us-central1', '--platform', 'managed', '--quiet']
 substitutions:
-  _AR_REPO: 'us-central1-docker.pkg.dev/tough-zoo-202415/n8n-repo'  # Your path
+  _AR_REPO: 'us-west1-docker.pkg.dev/tough-zoo-202415/n8n-repo'  # Your path
 options:
   logging: CLOUD_LOGGING_ONLY
