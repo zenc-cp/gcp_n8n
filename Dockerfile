@@ -2,6 +2,12 @@ FROM docker.n8n.io/n8nio/n8n:latest
 
 USER root
 
+# Install bash (Alpine uses ash/sh by default, pnpm needs a full shell for setup)
+RUN apk add --no-cache bash
+
+# Set SHELL to bash
+ENV SHELL=/bin/bash
+
 # Install pnpm globally
 RUN npm install -g pnpm
 
@@ -9,10 +15,10 @@ RUN npm install -g pnpm
 ENV PNPM_HOME=/root/.local/share/pnpm
 ENV PATH="$PNPM_HOME:$PATH"
 
-# Manually create PNPM_HOME directory to fix setup error
+# Manually create PNPM_HOME directory
 RUN mkdir -p $PNPM_HOME
 
-# Setup pnpm directories with force to bypass shell config check
+# Setup pnpm directories (with bash now)
 RUN pnpm setup --force
 
 # Install the community node
