@@ -9,11 +9,11 @@ RUN npm install -g pnpm
 ENV PNPM_HOME=/root/.local/share/pnpm
 ENV PATH="$PNPM_HOME:$PATH"
 
-# Set SHELL for pnpm setup (fixes non-interactive env issue)
-ENV SHELL=/bin/sh
+# Manually create PNPM_HOME directory to fix setup error
+RUN mkdir -p $PNPM_HOME
 
-# Setup pnpm directories
-RUN pnpm setup
+# Setup pnpm directories with force to bypass shell config check
+RUN pnpm setup --force
 
 # Install the community node
 RUN pnpm add -g n8n-nodes-playwright-persistent
