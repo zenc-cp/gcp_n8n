@@ -1,0 +1,10 @@
+# cloudbuild.yaml
+steps:
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['build', '-t', '$_AR_REPO/my-n8n-with-playwright:$SHORT_SHA', '.']
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['push', '$_AR_REPO/my-n8n-with-playwright:$SHORT_SHA']
+substitutions:
+  _AR_REPO: 'us-central1-docker.pkg.dev/YOUR_PROJECT_ID/n8n-repo'  # Replace with your Artifact Registry path
+options:
+  logging: CLOUD_LOGGING_ONLY
