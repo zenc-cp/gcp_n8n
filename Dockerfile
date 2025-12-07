@@ -9,6 +9,9 @@ RUN npm install -g pnpm
 ENV PNPM_HOME=/root/.local/share/pnpm
 ENV PATH="$PNPM_HOME:$PATH"
 
+# Set SHELL for pnpm setup (fixes non-interactive env issue)
+ENV SHELL=/bin/sh
+
 # Setup pnpm directories
 RUN pnpm setup
 
